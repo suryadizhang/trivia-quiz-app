@@ -1,13 +1,15 @@
 import { useState } from "react";
 //useState to state variable in array on requirement its only 2 option variable (category and difficulty) but 
 // i added choice of number of question
+//https://opentdb.com/api.php?amount=10&category=9&difficulty=easy&type=multiple
 const HomePage = ({onSubmit}) => {
     const [formData, setFormData] = useState ({
         name: '',
         number: '',
         category: '', 
         difficulty:'', 
-        type: ''});
+        type: 'multiple', // The question - the type will always be multiple choice
+    });
     const [error, setError] = useState('');
 
     const handleChange = (e) => {
@@ -25,7 +27,8 @@ const HomePage = ({onSubmit}) => {
             setError('all field are required!!');
         } else {
             setError('');
-            onSubmit(formData); // pass data to parent component
+            // Pass data to parent component
+            onSubmit(formData);
         }
     };
     return (
@@ -71,7 +74,7 @@ const HomePage = ({onSubmit}) => {
             <label>
                 Choose Difficulty:
                 <select
-                name="Difficulty"
+                name="difficulty"
                 value={formData.difficulty}
                 onChange={handleChange}>
                     <option value= ''>--Select Difficulty--</option>
@@ -87,3 +90,4 @@ const HomePage = ({onSubmit}) => {
 
     );
 }
+export default HomePage

@@ -1,35 +1,47 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from 'react';
+import HomePage from './components/HomePage';
+import QuestionForm from './components/QuestionForm';
+import Results from './components/ResultsSection';
+import './App.css';
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+  const [quizData, setQuizData] = useState(null);
+  const [result, setResult] = useState(null);
+  const [correctAnswer, setCorrectAnswer] = useState('');
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+  const handleStartQuiz = (data) => {
+    setQuizData(data);
+    setResult(null); //reset when start new quiz
+  };
+
+  const handleSubmitAnswer = (isCorrect, correct) => {
+    setResult(isCorrect);
+    setCorrectAnswer(correct); // store correct answer
+  };
+  const handleRestart = () => {
+    setQuizData(null);
+    setResult(null);
+  };
+  if (result !== null) {
+    return (
+      <Results
+      name={quizData.name}
+      isCorrect={result}
+      correctAnswer={correctAnswer}
+      onRestart={handleRestart}/>
+    );
+  }
+  if (quizData) {
+    return (
+      <QuestionForm
+      number={quizData.number}
+      category={quizData.category}
+      difficulty={quizData.difficulty}
+      onSubmitAnswer={handleSubmitAnswer} />
+    );
+  }
+  return <HomePage onSubmit={handleStartQuiz}/>;
+};
+
 
 export default App
