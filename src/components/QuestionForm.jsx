@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 // example from https://www.geeksforgeeks.org/how-to-fetch-data-from-an-api-in-reactjs/
-const QuestionForm = ({ number, category, difficulty, onSubmitAnser }) => {
+const QuestionForm = ({ number, category, difficulty, onSubmitAnswer }) => {
     const [questionData, setQuestionData] = useState(null);
     const [dataIsLoaded, setDataIsLoaded] = useState(false);
     const [selectedAnswer, setSelectedAnswer] = useState('');
@@ -26,6 +26,7 @@ const QuestionForm = ({ number, category, difficulty, onSubmitAnser }) => {
             } else {
                 alert("No question available");
                 setDataIsLoaded(true);
+                return; // Prevent rendering
             }
         });
     }, [number, category, difficulty]);

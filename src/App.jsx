@@ -14,9 +14,9 @@ const App = () => {
     setResult(null); //reset when start new quiz
   };
 
-  const handleSubmitAnswer = (selectedAnswer, questionData) => {
-    setResult(selectedAnswer === questionData.correctAnswer);
-    setCorrectAnswer(questionData.correctAnswer); // store correct answer
+  const handleSubmitAnswer = (isCorrect, correctAnswer) => {
+    setResult(isCorrect);
+    setCorrectAnswer(correctAnswer);
   };
 
   const handleRestart = () => {
