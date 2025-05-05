@@ -14,34 +14,39 @@ const App = () => {
     setResult(null); //reset when start new quiz
   };
 
-  const handleSubmitAnswer = (isCorrect, correct) => {
-    setResult(isCorrect);
-    setCorrectAnswer(correct); // store correct answer
+  const handleSubmitAnswer = (selectedAnswer, questionData) => {
+    setResult(selectedAnswer === questionData.correctAnswer);
+    setCorrectAnswer(questionData.correctAnswer); // store correct answer
   };
+
   const handleRestart = () => {
     setQuizData(null);
     setResult(null);
   };
+
   if (result !== null) {
     return (
       <Results
-      name={quizData.name}
-      isCorrect={result}
-      correctAnswer={correctAnswer}
-      onRestart={handleRestart}/>
+        name={quizData.name}
+        isCorrect={result}
+        correctAnswer={correctAnswer}
+        onRestart={handleRestart}
+      />
     );
   }
+
   if (quizData) {
     return (
       <QuestionForm
-      number={quizData.number}
-      category={quizData.category}
-      difficulty={quizData.difficulty}
-      onSubmitAnswer={handleSubmitAnswer} />
+        number={quizData.number}
+        category={quizData.category}
+        difficulty={quizData.difficulty}
+        onSubmitAnswer={handleSubmitAnswer}
+      />
     );
   }
-  return <HomePage onSubmit={handleStartQuiz}/>;
+
+  return <HomePage onSubmit={handleStartQuiz} />;
 };
 
-
-export default App
+export default App;

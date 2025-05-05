@@ -22,9 +22,13 @@ const HomePage = ({onSubmit}) => {
             !formData.name || 
             !formData.number ||
             !formData.category || 
-            !formData.difficulty ||
-            !formData.type){
-            setError('all field are required!!');
+            !formData.difficulty
+        ) {
+            setError("All fields are required!");
+            return;
+        }
+        if (!formData.type){
+            setError('all field are required!');
         } else {
             setError('');
             // Pass data to parent component
@@ -48,7 +52,6 @@ const HomePage = ({onSubmit}) => {
             <label>
                 Number Of Questions:
                 <select
-                    type="number"
                     name="number"
                     value={formData.number}
                     onChange={handleChange}>

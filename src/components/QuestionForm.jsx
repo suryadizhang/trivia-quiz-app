@@ -7,39 +7,37 @@ const QuestionForm = ({ number, category, difficulty, onSubmitAnser }) => {
     const [error, setError] = useState('');
 
     useEffect(() => {
-        //fetch question from api
-        //https://opentdb.com/api.php?amount=10&category=9&difficulty=easy&type=multiple
         fetch(
             `https://opentdb.com/api.php?amount=${number}&category=${category}&difficulty=${difficulty}&type=multiple`
         )
         .then((res) => res.json())
         .then((data) => {
             if (data.results.length > 0) {
-                const question = data.results[0]; 
+                const question = data.results[0];
                 const answers = [...question.incorrect_answers, question.correct_answer].sort(
-                    () => Math.random() - 0.5 // Randomize order of answers
+                    () => Math.random() - 0.5
                 );
                 setQuestionData({
                     question: question.question,
-                    answers, 
-                    correctAnswer: question.correct_answer, 
+                    answers,
+                    correctAnswer: question.correct_answer,
                 });
-                setDataIsLoaded(true); // Ensure data is marked as loaded
+                setDataIsLoaded(true);
             } else {
                 alert("No question available");
-                setDataIsLoaded(true); 
+                setDataIsLoaded(true);
             }
         });
-    }, [number, category, difficulty]); // dependency array this runs when this props change
+    }, [number, category, difficulty]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (!selectedAnswer){
+        if (!selectedAnswer) {
             setError("Please select an answer!");
             return;
         }
         setError('');
-        onSubmitAnser(selectedAnswer === questionData.correctAnswer, questionData.correctAnswer);
+        onSubmitAnswer(selectedAnswer === questionData.correctAnswer, questionData.correctAnswer);
     };
     if (!dataIsLoaded) {
         return(
