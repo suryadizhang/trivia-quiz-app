@@ -14,9 +14,8 @@ const App = () => {
     setResult(null); //reset when start new quiz
   };
 
-  const handleSubmitAnswer = (isCorrect, correctAnswer) => {
-    setResult(isCorrect);
-    setCorrectAnswer(correctAnswer);
+  const handleSubmitAnswer = (results) => {
+    setResult(results);
   };
 
   const handleRestart = () => {
@@ -28,9 +27,10 @@ const App = () => {
     return (
       <Results
         name={quizData.name}
-        isCorrect={result}
-        correctAnswer={correctAnswer}
+        correctAnswers={result.correctAnswers}
+        totalQuestions={result.totalQuestions}
         onRestart={handleRestart}
+        percentage={result.percentage}
       />
     );
   }

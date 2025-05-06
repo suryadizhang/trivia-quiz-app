@@ -1,12 +1,15 @@
-const Results = ({ name, isCorrect, correctAnswer, onRestart}) => {
+const Results = ({ name, percentage, correctAnswers, totalQuestions, onRestart }) => {
+    
     return (
         <div>
             <h2>Quiz Results</h2>
-            <p>{name}, you {isCorrect ? "Answer is correct!" : "Wrong answer"}</p>
-            {!isCorrect && (
-                <p>The correct Answer: {correctAnswer}</p>
-            )}
-            <button onClick={onRestart}>Restart</button>
+            <p>{name}, you got {correctAnswers} out of {totalQuestions} questions correct!</p>
+            <p>Your score: {percentage}%</p>
+            <div style={{ marginTop: '1rem' }}>
+                <button onClick={onRestart}>
+                    Try Again
+                </button>
+            </div>
         </div>
     );
 };
